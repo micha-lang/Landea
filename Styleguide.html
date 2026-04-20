@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gut Landea – Brand Styleguide</title>
+  <link rel="stylesheet" href="https://use.typekit.net/placeholder.css">
+  <style>
+    /* ─── Typefaces ──────────────────────────────────────────────────── */
+    /* Baskerville via system / web-safe fallback */
+    /* Sofia Pro Condensed via Adobe Fonts */
+    @import url("https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap");
+
+    /* ─── Tokens ─────────────────────────────────────────────────────── */
+    :root {
+      --black:   #0d0d0d;
+      --gold:    #d7c500;
+      --gold-lt: #ede99a;
+      --white:   #faf9f5;
+      --rule:    rgba(215,197,0,.25);
+      --ff-head: "Baskerville", "Baskerville Old Face", "Libre Baskerville", Georgia, serif;
+      --ff-body: "sofia-pro-condensed", "Sofia Pro Condensed", "Arial Narrow", sans-serif;
+      --transition: 180ms ease;
+    }
+
+    /* ─── Reset / Base ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--ff-body);
+      font-weight: 400;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Layout helpers ─────────────────────────────────────────────── */
+    .page { max-width: 860px; margin: 0 auto; padding: 0 2rem 6rem; }
+
+    section {
+      border-top: 1px solid var(--rule);
+      padding: 4rem 0 1rem;
+    }
+
+    .label {
+      font-family: var(--ff-body);
+      font-size: .72rem;
+      font-weight: 400;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(13,13,13,.38);
+      margin-bottom: 2rem;
+    }
+
+    /* ─── Hero / Cover ───────────────────────────────────────────────── */
+    .cover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100svh;
+      text-align: center;
+      border-top: none;
+      padding-top: 0;
+      gap: 2.5rem;
+      position: relative;
+    }
+
+    .cover::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 40% at 50% 60%, rgba(215,197,0,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cover-logo svg { width: clamp(140px, 22vw, 200px); height: auto; }
+
+    .cover-wordmark {
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      letter-spacing: .04em;
+      line-height: 1;
+    }
+
+    .cover-meta {
+      font-family: var(--ff-body);
+      font-size: .82rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(13,13,13,.4);
+    }
+
+    .wip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      border: 1px solid var(--gold);
+      padding: .35rem .85rem;
+      font-family: var(--ff-body);
+      font-size: .72rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #7a700a;
+      background: rgba(215,197,0,.07);
+      border-radius: 2px;
+    }
+
+    .wip-badge::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: .3; }
+    }
+
+    /* ─── Logo section ───────────────────────────────────────────────── */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5px;
+      margin-top: 2rem;
+    }
+
+    .logo-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      gap: 1.5rem;
+    }
+
+    .logo-cell.bg-white { background: var(--white); border: 1px solid #ebe9e0; }
+    .logo-cell.bg-black { background: var(--black); }
+
+    .logo-cell svg { width: 100%; max-width: 140px; height: auto; }
+    .logo-cell.wide svg { max-width: 100%; width: 100%; }
+
+    .logo-caption {
+      font-family: var(--ff-body);
+      font-size: .7rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(13,13,13,.38);
+    }
+
+    .logo-cell.bg-black .logo-caption { color: rgba(255,255,255,.35); }
+
+    /* invert the black strokes on dark bg */
+    .logo-cell.bg-black svg .st0 { stroke: #fff !important; }
+    .logo-cell.bg-black svg path:not(.st0):not(.st1) { fill: #fff !important; }
+
+    .logo-full-span {
+      grid-column: 1 / -1;
+    }
+
+    /* ─── Colors ─────────────────────────────────────────────────────── */
+    .swatch-row {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .swatch {
+      flex: 1 1 180px;
+      min-width: 160px;
+    }
+
+    .swatch-chip {
+      width: 100%;
+      aspect-ratio: 5/3;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    }
+
+    .swatch-name {
+      font-family: var(--ff-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: .25rem;
+    }
+
+    .swatch-hex {
+      font-family: var(--ff-body);
+      font-size: .78rem;
+      letter-spacing: .12em;
+      color: rgba(13,13,13,.5);
+      margin-bottom: .4rem;
+    }
+
+    .swatch-use {
+      font-family: var(--ff-body);
+      font-size: .82rem;
+      color: rgba(13,13,13,.6);
+      line-height: 1.5;
+    }
+
+    /* ─── Typography ─────────────────────────────────────────────────── */
+    .type-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .type-sample { }
+
+    .type-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: .75rem;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .type-spec {
+      font-family: var(--ff-body);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(13,13,13,.35);
+    }
+
+    .sample-h1 {
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      line-height: 1.08;
+      letter-spacing: -.01em;
+    }
+
+    .sample-h2 {
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1.15;
+    }
+
+    .sample-h3 {
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: 1.25rem;
+      line-height: 1.3;
+    }
+
+    .sample-body {
+      font-family: var(--ff-body);
+      font-weight: 400;
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    .sample-body-bold {
+      font-family: var(--ff-body);
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    .sample-caption {
+      font-family: var(--ff-body);
+      font-weight: 400;
+      font-size: .82rem;
+      letter-spacing: .06em;
+      color: rgba(13,13,13,.55);
+      line-height: 1.5;
+    }
+
+    .sample-label-text {
+      font-family: var(--ff-body);
+      font-weight: 400;
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(13,13,13,.45);
+    }
+
+    /* typeface info */
+    .font-card {
+      background: #f5f3ed;
+      border-left: 3px solid var(--gold);
+      padding: 1.2rem 1.5rem;
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: .5rem 2rem;
+      align-items: start;
+    }
+
+    .font-card-name {
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .font-card-role {
+      font-family: var(--ff-body);
+      font-size: .78rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(13,13,13,.4);
+      margin-top: .2rem;
+    }
+
+    .font-card-desc {
+      font-family: var(--ff-body);
+      font-size: .88rem;
+      color: rgba(13,13,13,.6);
+      line-height: 1.55;
+      grid-column: 1 / -1;
+    }
+
+    .font-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      font-family: var(--ff-body);
+      font-size: .75rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--black);
+      border-bottom: 1px solid var(--gold);
+      text-decoration: none;
+      padding-bottom: 1px;
+      transition: color var(--transition), border-color var(--transition);
+      white-space: nowrap;
+    }
+
+    .font-link:hover { color: #7a700a; border-color: #7a700a; }
+
+    /* ─── Quote ──────────────────────────────────────────────────────── */
+    .brand-quote {
+      margin: 2rem 0;
+      padding: 2.5rem 2.5rem 2.5rem 3rem;
+      border-left: 4px solid var(--gold);
+      background: #f5f3ed;
+      position: relative;
+    }
+
+    .brand-quote blockquote {
+      font-family: var(--ff-head);
+      font-style: italic;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+      color: var(--black);
+    }
+
+    .brand-quote cite {
+      font-family: var(--ff-body);
+      font-size: .78rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(13,13,13,.45);
+      font-style: normal;
+    }
+
+    /* ─── Philosophy / Usage example ─────────────────────────────────── */
+    .philosophy-block {
+      margin-top: 2rem;
+      background: var(--black);
+      color: var(--white);
+      padding: 3rem;
+    }
+
+    .philosophy-block .label { color: rgba(250,249,245,.3); }
+
+    .philosophy-block h2 {
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: 1.45rem;
+      margin-bottom: 1.25rem;
+      color: var(--white);
+    }
+
+    .philosophy-block p {
+      font-family: var(--ff-body);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: rgba(250,249,245,.8);
+    }
+
+    .philosophy-block .gold-line {
+      width: 2.5rem;
+      height: 3px;
+      background: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── UI Snippets ─────────────────────────────────────────────────── */
+    .ui-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      font-family: var(--ff-body);
+      font-weight: 700;
+      font-size: .8rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      background: var(--black);
+      color: var(--white);
+      padding: .75rem 1.75rem;
+      border: none;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .btn-primary:hover { background: #1a1a1a; }
+
+    .btn-secondary {
+      display: inline-block;
+      font-family: var(--ff-body);
+      font-weight: 700;
+      font-size: .8rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--black);
+      padding: .72rem 1.75rem;
+      border: 1.5px solid var(--black);
+      cursor: pointer;
+      transition: border-color var(--transition), color var(--transition);
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: #5a5200; }
+
+    .btn-gold {
+      display: inline-block;
+      font-family: var(--ff-body);
+      font-weight: 700;
+      font-size: .8rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--black);
+      padding: .75rem 1.75rem;
+      border: none;
+      cursor: pointer;
+      transition: filter var(--transition);
+    }
+    .btn-gold:hover { filter: brightness(.92); }
+
+    /* ─── Divider ─────────────────────────────────────────────────────── */
+    .gold-rule {
+      border: none;
+      border-top: 1px solid var(--gold);
+      opacity: .35;
+      margin: 1rem 0;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer .footer-brand {
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    footer .footer-meta {
+      font-family: var(--ff-body);
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(13,13,13,.35);
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .logo-grid { grid-template-columns: 1fr; }
+      .logo-full-span { grid-column: 1; }
+      .philosophy-block { padding: 2rem 1.5rem; }
+      .font-card { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ── Cover ──────────────────────────────────────────────────── -->
+  <section class="cover">
+
+    <div class="cover-logo">
+      <!-- Standard Logo -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 920">
+        <defs><style>.st0{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:20px}.st1{fill:#d7c500}</style></defs>
+        <path class="st0" d="M120,321.4"/>
+        <path class="st1" d="M460,480c-42.7,0-82.9-16.6-113.1-46.9-52.6-52.6-60.9-133.1-24.7-194.4l-31.9-31.9,56.6-56.6,84.9,84.9-28.3,28.3c-31.2,31.2-31.2,81.9,0,113.1,15.1,15.1,35.2,23.4,56.6,23.4s41.5-8.3,56.6-23.4,23.4-35.2,23.4-56.6-8.3-41.5-23.4-56.6l-28.3-28.3,84.9-84.9,56.6,56.6-31.8,31.8c14.4,24.4,22.1,52.2,22.1,81.3,0,42.7-16.6,82.9-46.9,113.1s-70.4,46.9-113.1,46.9Z"/>
+        <g><path d="M385.6,579.2v-5.4h31v5.4c-2.5.4-4.1,1.1-4.8,2.2-.7,1-1.1,3.1-1.1,6.4v13.9c-1,0-1.9,0-2.5,0-3.2,0-8.7.8-16.4,2.5-5.5,1.2-10.1,1.8-13.8,1.8-10.1,0-18.2-3.4-24.4-10.1-6.2-6.7-9.3-14.6-9.3-23.5s3.3-17.9,9.8-24.8c6.6-6.9,14.7-10.4,24.4-10.4s14.9,2.5,20.8,7.6c1-2.1,1.7-4.4,1.9-6.9h5.2l.6,23.1h-5.3c-3.4-11.3-9.9-16.9-19.6-16.9s-10.2,2.1-13.3,6.4c-3,4.3-4.6,11.4-4.6,21.5s.4,12.4,1.3,16.1c.9,3.7,2.6,6.5,5.2,8.5,2.6,2,5.9,3,9.9,3s6.6-.8,9-2.3c2.4-1.6,3.6-4.6,3.6-9.2v-2.4c0-3.9-2.5-6-7.6-6.3Z"/><path d="M427.4,543.6v-5.4h35v5.4h-1.1c-3.3,0-5.4.6-6.4,1.8-1,1.2-1.5,3.3-1.5,6.3v26.1c0,4.8.4,8.5,1.2,11.2s2.5,5.1,5.1,7c2.6,1.9,5.8,2.9,9.5,2.9s7.4-1,10.3-3.1c2.8-2.1,4.7-4.5,5.5-7.5.8-2.9,1.3-7.1,1.3-12.3v-22.3c0-6.8-3.3-10.2-9.8-10.2v-5.4h24.5v5.4c-1.4,0-2.9.4-4.4,1.2-1.5.8-2.6,1.9-3.2,3.3s-.9,3.4-.9,5.9v22.1c0,4.8-.3,8.6-.9,11.6-.6,3-2,5.9-4.3,8.7s-5.4,5-9.4,6.7c-4,1.7-8.4,2.5-13.3,2.5s-9.7-.8-13.7-2.5-7.2-3.8-9.3-6.3c-2.1-2.6-3.6-5.3-4.4-8.3-.8-3-1.1-6.6-1.1-10.7v-26.1c0-3.1-.5-5.3-1.6-6.4-1.1-1.1-3.4-1.7-7-1.7Z"/><path d="M535.5,544.1h-5.6c-3.3,0-5.8.4-7.3,1.1-1.6.7-2.9,2.1-3.9,4.3-1.1,2.1-1.7,4.7-1.9,7.6h-5.5v-18.8h66.3v18.8h-5.5c-1-5.1-2.5-8.5-4.4-10.3-1.9-1.8-4.9-2.7-9-2.7h-5.7v46.8c0,3,.5,5.1,1.5,6.3,1,1.2,3.2,1.8,6.5,1.8h1.7v5.4h-36.6v-5.4h1.6c3.3,0,5.5-.6,6.5-1.8,1-1.2,1.5-3.3,1.5-6.3v-46.8Z"/></g>
+        <g><path d="M287.1,682.4l-.3,22h-60.4v-5.4h1c3.3,0,5.5-.6,6.5-1.8,1-1.2,1.5-3.3,1.5-6.3v-39.2c0-3-.5-5.1-1.6-6.3-1-1.2-3.2-1.8-6.4-1.8h-1v-5.4h35.5v5.4h-1.3c-3.3,0-5.5.6-6.5,1.8-1,1.2-1.5,3.3-1.5,6.3v37.8c0,2.8.2,4.7.5,5.6.3.9,1.2,1.7,2.6,2.4,1.4.7,3.8,1,7.3,1,5.8,0,10.1-1.5,13-4.4,2.9-2.9,4.8-6.8,5.9-11.7h5.3Z"/><path d="M317.2,686.5l-1.3,3.3c-.9,2.3-1.4,3.9-1.4,4.9,0,1.6.5,2.7,1.6,3.3s2.8,1,5.3,1v5.4h-21.9v-5.4c4.2,0,7.7-3.5,10.5-10.6l20.4-51.3h5.7l20.8,51.3c2.1,5.1,3.9,8.1,5.6,9.2s3.3,1.5,4.8,1.5v5.4h-32.9v-5.4c3,0,4.8-.3,5.5-.9.7-.6,1.1-1.3,1.1-2.2s-.3-1.8-.9-3.1l-.6-1.5-1.9-4.8h-20.4ZM319.3,680.9h16.1l-8.3-19.8-7.8,19.8Z"/><path d="M396.1,657v30.4c0,4.9.9,8,2.7,9.4,1.8,1.4,4,2.1,6.8,2.1v5.4h-24.9v-5.4c2.1,0,4-.5,5.5-1.5s2.6-2.2,3-3.6c.4-1.4.6-3.5.6-6.4v-33.8c0-6.7-3.2-10.1-9.5-10.1v-5.4h22.4l36.3,40.5v-24.3c0-7.2-3-10.8-9.1-10.8v-5.4h23.8v5.4c-1.7,0-3.2.5-4.7,1.4-1.4.9-2.4,2.1-3,3.5-.5,1.4-.8,3.5-.8,6.2v50.8h-6.2l-42.9-48.4Z"/><path d="M469.3,704.4v-5.4c3.5,0,5.8-.5,6.9-1.6,1.1-1.1,1.7-3.2,1.7-6.5v-39.2c0-3.1-.5-5.3-1.6-6.4-1.1-1.1-3.4-1.7-7-1.7v-5.4l8-.3c8-.3,14.3-.5,18.8-.5,7.6,0,13.8.4,18.6,1.3,4.8.9,9.3,2.8,13.5,5.8s7.5,6.8,9.8,11.6,3.4,10,3.4,15.6-1.2,11-3.6,15.6c-2.4,4.6-5.7,8.3-9.8,11s-8.3,4.4-12.7,5.1c-4.4.7-11.8,1-22.2,1h-23.8ZM495.3,643.3v45.6c0,2.9.1,4.9.4,5.9.3,1,1,1.9,2.2,2.6,1.2.7,3,1.1,5.5,1.1,6.1,0,10.7-2.2,13.7-6.7,3-4.5,4.6-11.2,4.6-20.2s-1.1-13-3.4-17.3c-2.2-4.3-5.2-7.2-8.7-8.7-3.6-1.5-8.3-2.3-14.3-2.3Z"/><path d="M582,672.7v16.4c0,3.1.2,5.2.5,6.1.4,1,1.3,1.8,2.9,2.4s3.9,1,7.1,1,7.5-.5,9.5-1.6c2-1.1,3.9-3,5.5-5.7,1.6-2.7,2.8-5.6,3.5-8.6h5.5l-.4,21.7h-60.5v-5.4h1.2c3.3,0,5.4-.6,6.4-1.8,1-1.2,1.5-3.3,1.5-6.3v-39.3c0-3-.5-5.1-1.5-6.3-1-1.2-3.1-1.8-6.4-1.8h-1.2v-5.3h56.4l1,17.1h-5.5c-1-3-2.1-5.4-3.3-7.2-1.2-1.8-2.4-2.9-3.6-3.4-1.2-.5-3.3-.8-6.2-.8h-12.4v22.9h6.2c2.9,0,4.9-.6,5.8-1.7,1-1.1,1.5-3.3,1.6-6.5h5.5v22.5h-5.5c0-.4,0-.7,0-.9,0-1.9-.4-3.6-1.2-5.1-.8-1.5-2.8-2.3-6.1-2.3h-6.3Z"/><path d="M647.8,686.5l-1.3,3.3c-.9,2.3-1.4,3.9-1.4,4.9,0,1.6.5,2.7,1.6,3.3s2.8,1,5.3,1v5.4h-21.9v-5.4c4.2,0,7.7-3.5,10.5-10.6l20.4-51.3h5.7l20.8,51.3c2.1,5.1,3.9,8.1,5.6,9.2s3.3,1.5,4.8,1.5v5.4h-32.9v-5.4c3,0,4.8-.3,5.5-.9.7-.6,1.1-1.3,1.1-2.2s-.3-1.8-.9-3.1l-.6-1.5-1.9-4.8h-20.4ZM649.9,680.9h16.1l-8.3-19.8-7.8,19.8Z"/></g>
+      </svg>
+    </div>
+
+    <div>
+      <div class="cover-wordmark">Brand Styleguide</div>
+      <div class="cover-meta" style="margin-top:.6rem">Version 0.1 · Work in Progress</div>
+    </div>
+
+    <div class="wip-badge">Work in Progress – dieser Guide wird kontinuierlich erweitert</div>
+
+  </section>
+
+  <!-- ── Logo ───────────────────────────────────────────────────── -->
+  <section>
+    <p class="label">01 — Logo</p>
+
+    <p class="sample-body" style="margin-bottom:2rem; max-width:55ch">Das Markenzeichen besteht aus dem Hufeisen-Symbol in Gold (<code>#d7c500</code>) und dem gesetzten Schriftzug in Schwarz. Die Standardvariante wird überall dort eingesetzt, wo ausreichend Höhe vorhanden ist.</p>
+
+    <p class="sample-body" style="margin-bottom:2rem; max-width:55ch">
+      <a class="font-link" href="https://drive.google.com/drive/folders/19SQYCufLVgcUCUj2LCY1G5-cEYx3xOZS?usp=sharing" target="_blank" rel="noopener" style="font-size:.8rem">↗ Logo-Dateien herunterladen (Google Drive)</a>
+    </p>
+
+    <div class="logo-grid">
+      <div class="logo-cell bg-white">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 920">
+          <defs><style>.lg-st0{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:20px}.lg-st1{fill:#d7c500}</style></defs>
+          <path class="lg-st0" d="M120,321.4"/>
+          <path class="lg-st1" d="M460,480c-42.7,0-82.9-16.6-113.1-46.9-52.6-52.6-60.9-133.1-24.7-194.4l-31.9-31.9,56.6-56.6,84.9,84.9-28.3,28.3c-31.2,31.2-31.2,81.9,0,113.1,15.1,15.1,35.2,23.4,56.6,23.4s41.5-8.3,56.6-23.4,23.4-35.2,23.4-56.6-8.3-41.5-23.4-56.6l-28.3-28.3,84.9-84.9,56.6,56.6-31.8,31.8c14.4,24.4,22.1,52.2,22.1,81.3,0,42.7-16.6,82.9-46.9,113.1s-70.4,46.9-113.1,46.9Z"/>
+          <g><path d="M385.6,579.2v-5.4h31v5.4c-2.5.4-4.1,1.1-4.8,2.2-.7,1-1.1,3.1-1.1,6.4v13.9c-1,0-1.9,0-2.5,0-3.2,0-8.7.8-16.4,2.5-5.5,1.2-10.1,1.8-13.8,1.8-10.1,0-18.2-3.4-24.4-10.1-6.2-6.7-9.3-14.6-9.3-23.5s3.3-17.9,9.8-24.8c6.6-6.9,14.7-10.4,24.4-10.4s14.9,2.5,20.8,7.6c1-2.1,1.7-4.4,1.9-6.9h5.2l.6,23.1h-5.3c-3.4-11.3-9.9-16.9-19.6-16.9s-10.2,2.1-13.3,6.4c-3,4.3-4.6,11.4-4.6,21.5s.4,12.4,1.3,16.1c.9,3.7,2.6,6.5,5.2,8.5,2.6,2,5.9,3,9.9,3s6.6-.8,9-2.3c2.4-1.6,3.6-4.6,3.6-9.2v-2.4c0-3.9-2.5-6-7.6-6.3Z"/><path d="M427.4,543.6v-5.4h35v5.4h-1.1c-3.3,0-5.4.6-6.4,1.8-1,1.2-1.5,3.3-1.5,6.3v26.1c0,4.8.4,8.5,1.2,11.2s2.5,5.1,5.1,7c2.6,1.9,5.8,2.9,9.5,2.9s7.4-1,10.3-3.1c2.8-2.1,4.7-4.5,5.5-7.5.8-2.9,1.3-7.1,1.3-12.3v-22.3c0-6.8-3.3-10.2-9.8-10.2v-5.4h24.5v5.4c-1.4,0-2.9.4-4.4,1.2-1.5.8-2.6,1.9-3.2,3.3s-.9,3.4-.9,5.9v22.1c0,4.8-.3,8.6-.9,11.6-.6,3-2,5.9-4.3,8.7s-5.4,5-9.4,6.7c-4,1.7-8.4,2.5-13.3,2.5s-9.7-.8-13.7-2.5-7.2-3.8-9.3-6.3c-2.1-2.6-3.6-5.3-4.4-8.3-.8-3-1.1-6.6-1.1-10.7v-26.1c0-3.1-.5-5.3-1.6-6.4-1.1-1.1-3.4-1.7-7-1.7Z"/><path d="M535.5,544.1h-5.6c-3.3,0-5.8.4-7.3,1.1-1.6.7-2.9,2.1-3.9,4.3-1.1,2.1-1.7,4.7-1.9,7.6h-5.5v-18.8h66.3v18.8h-5.5c-1-5.1-2.5-8.5-4.4-10.3-1.9-1.8-4.9-2.7-9-2.7h-5.7v46.8c0,3,.5,5.1,1.5,6.3,1,1.2,3.2,1.8,6.5,1.8h1.7v5.4h-36.6v-5.4h1.6c3.3,0,5.5-.6,6.5-1.8,1-1.2,1.5-3.3,1.5-6.3v-46.8Z"/></g>
+          <g><path d="M287.1,682.4l-.3,22h-60.4v-5.4h1c3.3,0,5.5-.6,6.5-1.8,1-1.2,1.5-3.3,1.5-6.3v-39.2c0-3-.5-5.1-1.6-6.3-1-1.2-3.2-1.8-6.4-1.8h-1v-5.4h35.5v5.4h-1.3c-3.3,0-5.5.6-6.5,1.8-1,1.2-1.5,3.3-1.5,6.3v37.8c0,2.8.2,4.7.5,5.6.3.9,1.2,1.7,2.6,2.4,1.4.7,3.8,1,7.3,1,5.8,0,10.1-1.5,13-4.4,2.9-2.9,4.8-6.8,5.9-11.7h5.3Z"/><path d="M317.2,686.5l-1.3,3.3c-.9,2.3-1.4,3.9-1.4,4.9,0,1.6.5,2.7,1.6,3.3s2.8,1,5.3,1v5.4h-21.9v-5.4c4.2,0,7.7-3.5,10.5-10.6l20.4-51.3h5.7l20.8,51.3c2.1,5.1,3.9,8.1,5.6,9.2s3.3,1.5,4.8,1.5v5.4h-32.9v-5.4c3,0,4.8-.3,5.5-.9.7-.6,1.1-1.3,1.1-2.2s-.3-1.8-.9-3.1l-.6-1.5-1.9-4.8h-20.4ZM319.3,680.9h16.1l-8.3-19.8-7.8,19.8Z"/><path d="M396.1,657v30.4c0,4.9.9,8,2.7,9.4,1.8,1.4,4,2.1,6.8,2.1v5.4h-24.9v-5.4c2.1,0,4-.5,5.5-1.5s2.6-2.2,3-3.6c.4-1.4.6-3.5.6-6.4v-33.8c0-6.7-3.2-10.1-9.5-10.1v-5.4h22.4l36.3,40.5v-24.3c0-7.2-3-10.8-9.1-10.8v-5.4h23.8v5.4c-1.7,0-3.2.5-4.7,1.4-1.4.9-2.4,2.1-3,3.5-.5,1.4-.8,3.5-.8,6.2v50.8h-6.2l-42.9-48.4Z"/><path d="M469.3,704.4v-5.4c3.5,0,5.8-.5,6.9-1.6,1.1-1.1,1.7-3.2,1.7-6.5v-39.2c0-3.1-.5-5.3-1.6-6.4-1.1-1.1-3.4-1.7-7-1.7v-5.4l8-.3c8-.3,14.3-.5,18.8-.5,7.6,0,13.8.4,18.6,1.3,4.8.9,9.3,2.8,13.5,5.8s7.5,6.8,9.8,11.6,3.4,10,3.4,15.6-1.2,11-3.6,15.6c-2.4,4.6-5.7,8.3-9.8,11s-8.3,4.4-12.7,5.1c-4.4.7-11.8,1-22.2,1h-23.8ZM495.3,643.3v45.6c0,2.9.1,4.9.4,5.9.3,1,1,1.9,2.2,2.6,1.2.7,3,1.1,5.5,1.1,6.1,0,10.7-2.2,13.7-6.7,3-4.5,4.6-11.2,4.6-20.2s-1.1-13-3.4-17.3c-2.2-4.3-5.2-7.2-8.7-8.7-3.6-1.5-8.3-2.3-14.3-2.3Z"/><path d="M582,672.7v16.4c0,3.1.2,5.2.5,6.1.4,1,1.3,1.8,2.9,2.4s3.9,1,7.1,1,7.5-.5,9.5-1.6c2-1.1,3.9-3,5.5-5.7,1.6-2.7,2.8-5.6,3.5-8.6h5.5l-.4,21.7h-60.5v-5.4h1.2c3.3,0,5.4-.6,6.4-1.8,1-1.2,1.5-3.3,1.5-6.3v-39.3c0-3-.5-5.1-1.5-6.3-1-1.2-3.1-1.8-6.4-1.8h-1.2v-5.3h56.4l1,17.1h-5.5c-1-3-2.1-5.4-3.3-7.2-1.2-1.8-2.4-2.9-3.6-3.4-1.2-.5-3.3-.8-6.2-.8h-12.4v22.9h6.2c2.9,0,4.9-.6,5.8-1.7,1-1.1,1.5-3.3,1.6-6.5h5.5v22.5h-5.5c0-.4,0-.7,0-.9,0-1.9-.4-3.6-1.2-5.1-.8-1.5-2.8-2.3-6.1-2.3h-6.3Z"/><path d="M647.8,686.5l-1.3,3.3c-.9,2.3-1.4,3.9-1.4,4.9,0,1.6.5,2.7,1.6,3.3s2.8,1,5.3,1v5.4h-21.9v-5.4c4.2,0,7.7-3.5,10.5-10.6l20.4-51.3h5.7l20.8,51.3c2.1,5.1,3.9,8.1,5.6,9.2s3.3,1.5,4.8,1.5v5.4h-32.9v-5.4c3,0,4.8-.3,5.5-.9.7-.6,1.1-1.3,1.1-2.2s-.3-1.8-.9-3.1l-.6-1.5-1.9-4.8h-20.4ZM649.9,680.9h16.1l-8.3-19.8-7.8,19.8Z"/></g>
+        </svg>
+        <span class="logo-caption">Standard — hell</span>
+      </div>
+
+
+
+      <!-- Horizontal / Querformat -->
+      <div class="logo-cell bg-white wide" style="padding:2.5rem 1.5rem">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 440" style="max-width:100%;width:100%">
+          <defs><style>.ql-st0{fill:none}.ql-st1{fill:#d7c500}</style></defs>
+          <g>
+            <path class="ql-st1" d="M240,380c-42.7,0-82.9-16.6-113.1-46.9-52.6-52.6-60.9-133.1-24.7-194.4l-31.9-31.9,56.6-56.6,84.9,84.9-28.3,28.3c-31.2,31.2-31.2,81.9,0,113.1,15.1,15.1,35.2,23.4,56.6,23.4s41.5-8.3,56.6-23.4,23.4-35.2,23.4-56.6-8.3-41.5-23.4-56.6l-28.3-28.3,84.9-84.9,56.6,56.6-31.8,31.8c14.4,24.4,22.1,52.2,22.1,81.3,0,42.7-16.6,82.9-46.9,113.1s-70.4,46.9-113.1,46.9Z"/>
+            <rect class="ql-st0" x="40" y="20" width="400" height="400"/>
+          </g>
+          <g>
+            <path d="M563,151.9v-9.7h55.8v9.7c-4.5.8-7.4,2.1-8.7,3.9-1.3,1.8-2,5.7-2,11.5v25c-1.9-.1-3.4-.2-4.6-.2-5.8,0-15.6,1.5-29.4,4.5-9.9,2.1-18.2,3.2-24.9,3.2-18.1,0-32.8-6-43.9-18.1-11.2-12.1-16.8-26.2-16.8-42.3s5.9-32.2,17.7-44.6c11.8-12.5,26.4-18.7,43.9-18.7s26.7,4.5,37.5,13.6c1.9-3.9,3-8,3.4-12.4h9.4l1.1,41.7h-9.6c-6-20.3-17.8-30.4-35.3-30.4s-18.4,3.8-23.9,11.5c-5.5,7.7-8.2,20.6-8.2,38.7s.8,22.4,2.4,29c1.6,6.6,4.7,11.7,9.3,15.4,4.6,3.6,10.6,5.4,17.9,5.4s11.9-1.4,16.2-4.2c4.3-2.8,6.4-8.3,6.4-16.6v-4.4c0-7-4.6-10.8-13.7-11.3Z"/><path d="M638.2,87.9v-9.8h62.9v9.8h-2c-5.9,0-9.8,1.1-11.5,3.3-1.8,2.2-2.6,5.9-2.6,11.3v47c0,8.6.7,15.3,2.1,20.2s4.5,9.1,9.2,12.6c4.7,3.5,10.4,5.2,17.1,5.2s13.4-1.8,18.5-5.5c5.1-3.7,8.5-8.2,10-13.5,1.5-5.3,2.3-12.7,2.3-22.2v-40.1c0-12.2-5.9-18.3-17.7-18.3v-9.8h44.1v9.8c-2.5,0-5.2.7-7.9,2.2-2.8,1.4-4.7,3.4-5.7,6s-1.6,6.1-1.6,10.7v39.8c0,8.6-.5,15.5-1.6,21-1.1,5.4-3.6,10.6-7.7,15.6s-9.7,9-16.9,12.1-15.2,4.6-24,4.6-17.4-1.5-24.7-4.5-12.9-6.8-16.7-11.4c-3.9-4.6-6.5-9.6-7.9-15-1.4-5.4-2.1-11.9-2.1-19.3v-47c0-5.6-1-9.5-2.9-11.5-1.9-2.1-6.2-3.1-12.7-3.1Z"/><path d="M832.8,88.7h-10c-6,0-10.4.6-13.2,1.9-2.8,1.3-5.2,3.9-7.1,7.7-1.9,3.8-3.1,8.4-3.5,13.7h-9.9v-33.9h119.3v33.9h-9.9c-1.9-9.1-4.5-15.3-7.9-18.5-3.4-3.2-8.8-4.8-16.3-4.8h-10.3v84.2c0,5.4.9,9.2,2.8,11.4,1.8,2.1,5.7,3.2,11.6,3.2h3.1v9.8h-65.8v-9.8h2.8c6,0,9.9-1.1,11.6-3.3,1.8-2.2,2.7-6,2.7-11.3v-84.2Z"/><path d="M593.1,327.7l-.5,39.6h-108.6v-9.8h1.8c6,0,9.9-1.1,11.6-3.3,1.8-2.2,2.7-6,2.7-11.3v-70.5c0-5.4-.9-9.2-2.8-11.4-1.9-2.1-5.7-3.2-11.5-3.2h-1.8v-9.8h63.9v9.8h-2.4c-6,0-9.9,1.1-11.6,3.3-1.8,2.2-2.7,6-2.7,11.3v68c0,5.1.3,8.5.9,10.1.6,1.6,2.1,3.1,4.6,4.3,2.5,1.2,6.8,1.8,13.1,1.8,10.4,0,18.2-2.6,23.4-7.9,5.2-5.2,8.7-12.3,10.5-21.1h9.5Z"/><path d="M647.3,335.1l-2.3,5.9c-1.6,4.2-2.5,7.1-2.5,8.8,0,2.9,1,4.9,2.9,6s5.1,1.7,9.5,1.7v9.8h-39.4v-9.8c7.5,0,13.8-6.4,18.9-19.2l36.7-92.4h10.3l37.4,92.3c3.7,9.1,7,14.6,10,16.5s5.9,2.8,8.6,2.8v9.8h-59.2v-9.8c5.3,0,8.6-.5,9.9-1.5,1.3-1,1.9-2.3,1.9-3.9s-.5-3.3-1.6-5.5l-1.1-2.7-3.4-8.7h-36.7ZM651.1,325h28.9l-14.9-35.6-14.1,35.6Z"/><path d="M789.3,282v54.8c0,8.8,1.6,14.4,4.8,17,3.2,2.5,7.3,3.8,12.3,3.8v9.8h-44.7v-9.8c3.8,0,7.1-.9,9.9-2.8s4.6-4,5.4-6.4c.8-2.4,1.1-6.3,1.1-11.5v-60.8c0-12.1-5.7-18.2-17.1-18.2v-9.8h40.3l65.3,72.9v-43.7c0-13-5.5-19.5-16.4-19.5v-9.8h42.8v9.8c-3,0-5.8.8-8.4,2.5-2.6,1.6-4.4,3.7-5.3,6.3-.9,2.5-1.4,6.3-1.4,11.1v91.5h-11.2l-77.3-87.2Z"/><path d="M921.1,367.3v-9.8c6.3,0,10.4-1,12.5-2.9,2.1-2,3.1-5.8,3.1-11.6v-70.6c0-5.6-1-9.5-2.9-11.5-1.9-2.1-6.2-3.1-12.7-3.1v-9.7l14.3-.5c14.4-.6,25.7-.9,33.9-.9,13.7,0,24.9.8,33.4,2.4,8.6,1.6,16.7,5.1,24.3,10.4s13.5,12.3,17.7,20.8,6.2,17.9,6.2,28.2-2.2,19.9-6.5,28.1c-4.4,8.3-10.2,14.9-17.6,19.8s-15,8-22.9,9.1c-7.9,1.2-21.2,1.8-39.9,1.8h-42.9ZM967.9,257.4v82.1c0,5.3.2,8.8.7,10.6.5,1.8,1.8,3.4,4,4.7,2.1,1.3,5.4,1.9,9.9,1.9,11,0,19.3-4,24.7-12.1,5.5-8.1,8.2-20.2,8.2-36.3s-2-23.4-6.1-31.1c-4-7.7-9.3-12.9-15.7-15.7-6.4-2.8-15-4.1-25.8-4.1Z"/><path d="M1124,310.3v29.4c0,5.6.3,9.3,1,11,.6,1.7,2.4,3.2,5.2,4.3s7.1,1.7,12.8,1.7,13.5-1,17.2-2.9c3.7-1.9,6.9-5.3,9.8-10.2,2.9-4.9,5-10,6.3-15.6h9.8l-.8,39.1h-109v-9.8h2.2c5.9,0,9.8-1.1,11.6-3.3,1.8-2.2,2.7-6,2.7-11.3v-70.7c0-5.4-.9-9.2-2.8-11.4-1.8-2.1-5.7-3.2-11.5-3.2h-2.2v-9.6h101.5l1.8,30.8h-9.8c-1.8-5.4-3.7-9.7-5.9-12.9-2.2-3.2-4.4-5.2-6.5-6.2-2.2-.9-5.9-1.4-11.1-1.4h-22.2v41.1h11.1c5.3,0,8.8-1,10.5-3,1.7-2,2.7-5.9,2.9-11.8h9.9v40.4h-9.9c0-.8,0-1.3,0-1.7,0-3.4-.7-6.5-2.2-9.2-1.4-2.8-5.1-4.1-11-4.1h-11.4Z"/><path d="M1242.5,335.1l-2.3,5.9c-1.6,4.2-2.5,7.1-2.5,8.8,0,2.9,1,4.9,2.9,6s5.1,1.7,9.5,1.7v9.8h-39.4v-9.8c7.5,0,13.8-6.4,18.9-19.2l36.7-92.4h10.3l37.4,92.3c3.7,9.1,7,14.6,10,16.5s5.9,2.8,8.6,2.8v9.8h-59.2v-9.8c5.3,0,8.6-.5,9.9-1.5,1.3-1,1.9-2.3,1.9-3.9s-.5-3.3-1.6-5.5l-1.1-2.7-3.4-8.7h-36.7ZM1246.2,325h28.9l-14.9-35.6-14.1,35.6Z"/></g>
+        </svg>
+        <span class="logo-caption">Querformat — für horizontale Anwendungen</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── Colors ─────────────────────────────────────────────────── -->
+  <section>
+    <p class="label">02 — Farben</p>
+
+    <div class="swatch-row">
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#0d0d0d; border:1px solid #e5e2d8"></div>
+        <div class="swatch-name">Schwarz</div>
+        <div class="swatch-hex">#0d0d0d — RGB 13 · 13 · 13</div>
+        <div class="swatch-use">Primärfarbe. Text, Hintergründe, Rahmen. Wird überall dort eingesetzt, wo Klarheit und Kontrast gefordert sind.</div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#d7c500"></div>
+        <div class="swatch-name">Gold</div>
+        <div class="swatch-hex">#d7c500 — RGB 215 · 197 · 0</div>
+        <div class="swatch-use">Akzentfarbe. Logo-Symbol, Linien, Buttons, Hervorhebungen. Sparsam eingesetzt – Wirkung durch Zurückhaltung.</div>
+      </div>
+
+      <div class="swatch">
+        <div class="swatch-chip" style="background:#faf9f5; border:1px solid #e5e2d8"></div>
+        <div class="swatch-name">Pergament</div>
+        <div class="swatch-hex">#faf9f5 — RGB 250 · 249 · 245</div>
+        <div class="swatch-use">Hintergrundfarbe. Wärmer als reines Weiß, vermeidet sterile Anmutung. Basisfarbe für alle hellen Layouts.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Typography ─────────────────────────────────────────────── -->
+  <section>
+    <p class="label">03 — Typografie</p>
+
+    <div class="font-card">
+      <div>
+        <div class="font-card-name">Baskerville Bold</div>
+        <div class="font-card-role">Headlines · Display · Zitate</div>
+      </div>
+      <a class="font-link" href="https://fonts.google.com/specimen/Libre+Baskerville" target="_blank" rel="noopener">
+        ↗ Google Fonts
+      </a>
+      <div class="font-card-desc">Klassische Serifenschrift mit klarem Charakter. Verleiht Überschriften Autorität und Würde – ohne Distanz. Web-Fallback: <em>Libre Baskerville</em> (Google Fonts, kostenlos).</div>
+    </div>
+
+    <div class="font-card" style="margin-top:.75rem">
+      <div>
+        <div class="font-card-name">Sofia Pro Condensed</div>
+        <div class="font-card-role">Fließtext · Labels · UI-Elemente</div>
+      </div>
+      <a class="font-link" href="https://fonts.adobe.com/fonts/sofia-pro" target="_blank" rel="noopener">
+        ↗ Adobe Fonts
+      </a>
+      <div class="font-card-desc">Humanistische Grotesk im Kondensatschnitt. Ruhig, ökonomisch, gut lesbar. Wird in Regular (400) und Bold (700) verwendet. Verfügbar über Adobe Fonts (Creative Cloud).</div>
+    </div>
+
+    <div class="type-stack" style="margin-top:3rem">
+
+      <div class="type-sample">
+        <div class="type-label-row">
+          <span class="label" style="margin:0">Headline H1</span>
+          <span class="type-spec">Baskerville Bold · 3.6 rem · lh 1.08</span>
+        </div>
+        <div class="sample-h1">Gute Pferde<br>werden gemacht.</div>
+      </div>
+
+      <div class="type-sample">
+        <div class="type-label-row">
+          <span class="label" style="margin:0">Headline H2</span>
+          <span class="type-spec">Baskerville Bold · 2.2 rem · lh 1.15</span>
+        </div>
+        <div class="sample-h2">Unser Ansatz – einfach und konsequent</div>
+      </div>
+
+      <div class="type-sample">
+        <div class="type-label-row">
+          <span class="label" style="margin:0">Headline H3</span>
+          <span class="type-spec">Baskerville Bold · 1.25 rem · lh 1.3</span>
+        </div>
+        <div class="sample-h3">Ausbildung, Haltung, Fütterung</div>
+      </div>
+
+      <div class="type-sample">
+        <div class="type-label-row">
+          <span class="label" style="margin:0">Fließtext Regular</span>
+          <span class="type-spec">Sofia Pro Condensed 400 · 1.05 rem · lh 1.65</span>
+        </div>
+        <div class="sample-body">Gute Pferde entstehen nicht durch Tempo, sondern durch Wiederholung und Verlässlichkeit. In der Ausbildung arbeiten wir Schritt für Schritt – so, dass das Pferd versteht, was gemeint ist, und dabei ruhig bleibt.</div>
+      </div>
+
+      <div class="type-sample">
+        <div class="type-label-row">
+          <span class="label" style="margin:0">Fließtext Bold</span>
+          <span class="type-spec">Sofia Pro Condensed 700 · 1.05 rem · lh 1.65</span>
+        </div>
+        <div class="sample-body-bold">Die Pferde leben sozial eingebunden, bewegen sich täglich und bekommen Futter, das zu unserer Landwirtschaft passt.</div>
+      </div>
+
+      <div class="type-sample">
+        <div class="type-label-row">
+          <span class="label" style="margin:0">Caption</span>
+          <span class="type-spec">Sofia Pro Condensed 400 · 0.82 rem · ls 0.06em</span>
+        </div>
+        <div class="sample-caption">Fotos entstanden auf Gut Landea, Frühjahr 2025. Alle Rechte vorbehalten.</div>
+      </div>
+
+      <div class="type-sample">
+        <div class="type-label-row">
+          <span class="label" style="margin:0">Label / Navigation</span>
+          <span class="type-spec">Sofia Pro Condensed 400 · 0.7 rem · ls 0.2em · uppercase</span>
+        </div>
+        <div class="sample-label-text">Philosophie · Ausbildung · Kontakt</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Voice / Quote ──────────────────────────────────────────── -->
+  <section>
+    <p class="label">04 — Markenstimme</p>
+
+    <p class="sample-body" style="max-width:56ch; margin-bottom:2rem">Die Sprache von Gut Landea ist direkt, geerdet und frei von Überflüssigem. Kurze Sätze. Keine Superlative. Das Pferd und der Mensch stehen im Mittelpunkt – nicht die Marke.</p>
+
+    <div class="brand-quote">
+      <blockquote>»Gute Pferde<br>werden gemacht.«</blockquote>
+      <cite>— Reiner Klimke</cite>
+    </div>
+
+    <div class="philosophy-block">
+      <p class="label">Philosophie-Seite · Anwendungsbeispiel</p>
+      <div class="gold-line"></div>
+      <h2>Unser Ansatz – einfach und konsequent</h2>
+      <p>Gute Pferde entstehen nicht durch Tempo, sondern durch Wiederholung und Verlässlichkeit. Darum ziehen wir eine klare Linie durch alles, was wir tun: Die Pferde leben sozial eingebunden, bewegen sich täglich und bekommen Futter, das zu unserer Landwirtschaft passt. In der Ausbildung arbeiten wir Schritt für Schritt – so, dass das Pferd versteht, was gemeint ist, und dabei ruhig bleibt.</p>
+    </div>
+  </section>
+
+  <!-- ── UI Elements ─────────────────────────────────────────────── -->
+  <section>
+    <p class="label">05 — UI-Elemente</p>
+
+    <p class="sample-body" style="margin-bottom:.5rem">Buttons</p>
+    <div class="ui-row">
+      <button class="btn-primary">Mehr erfahren</button>
+      <button class="btn-secondary">Kontakt aufnehmen</button>
+      <button class="btn-gold">Anfrage senden</button>
+    </div>
+
+    <p class="sample-body" style="margin-top:2.5rem; margin-bottom:.75rem">Trennlinie</p>
+    <hr class="gold-rule">
+
+    <p class="sample-body" style="margin-top:2.5rem; margin-bottom:.75rem">Akzentlinie (Gold, vertikal)</p>
+    <div style="display:flex; gap:1.5rem; align-items:stretch; margin-top:.5rem">
+      <div style="width:3px; background:var(--gold); border-radius:2px; min-height:60px; flex-shrink:0"></div>
+      <p class="sample-body" style="max-width:44ch">In der Ausbildung arbeiten wir Schritt für Schritt – so, dass das Pferd versteht, was gemeint ist, und dabei ruhig bleibt.</p>
+    </div>
+
+  </section>
+
+  <!-- ── Footer ─────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-brand">Gut Landea</div>
+    <div class="footer-meta">Brand Styleguide · V 0.1 · Work in Progress · 2025</div>
+  </footer>
+
+</div><!-- /page -->
+
+</body>
+</html>
